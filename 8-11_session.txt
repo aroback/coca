@@ -1,0 +1,109 @@
+WHY DID THIS SORT OF WORK???  FIGURE IT OUT TOMORROW
+andrew@andrew-desktop:~$ cd Documents/coca/
+andrew@andrew-desktop:~/Documents/coca$ ruby cocatest.rb 
+cocatest.rb:24: syntax error, unexpected '\n', expecting '{'
+andrew@andrew-desktop:~/Documents/coca$ ruby cocatest.rb 
+andrew@andrew-desktop:~/Documents/coca$ ruby cocatest.rb 
+/usr/lib/ruby/gems/1.8/gems/firewatir-1.9.3/lib/firewatir/element.rb:922:in `assert_exists': Unable to locate element, using {:name=>"dox"} (Watir::Exception::UnknownObjectException)
+	from /usr/lib/ruby/gems/1.8/gems/firewatir-1.9.3/lib/firewatir/elements/radio_check_common.rb:133:in `set'
+	from cocatest.rb:22
+andrew@andrew-desktop:~/Documents/coca$ irb
+irb(main):001:0> require "rubygems"
+=> true
+irb(main):002:0> require "firewatir"
+=> true
+irb(main):003:0> require "nokogiri"
+=> true
+irb(main):004:0> Watir::Browser.default = 'firefox'
+=> "firefox"
+irb(main):005:0> 
+irb(main):006:0* b = Watir::Browser.new
+=> #<FireWatir::Firefox:0x..fb74280a8 url="http://www.google.com/" title="Google">
+irb(main):007:0> b.goto "http://corpus.byu.edu/coca/"
+=> #<FireWatir::Firefox:0x..fb74280a8 url="http://corpus.byu.edu/coca/" title="Corpus of Contemporary American English (COCA)">
+irb(main):008:0> b.button(:name => "B1").click
+=> 0
+irb(main):009:0> b.frame(:name, "lefto").text_field(:name => "p").set "corruption"
+=> 0
+irb(main):010:0> b.frame(:name, "lefto").button(:name => "B7").click
+=> 0
+irb(main):011:0> b.frame(:name, "rmid").checkbox(:name => "dox").set
+=> ""
+irb(main):012:0> b.frame(:name, "rmid").button(:name => "button3").click
+=> 0
+irb(main):013:0> wait(5)
+NoMethodError: undefined method `wait' for main:Object
+	from (irb):13
+	from :0
+irb(main):014:0> b.wait(5)
+=> #<FireWatir::Firefox:0x..fb74280a8 url="http://corpus.byu.edu/coca/" title="Corpus of Contemporary American English (COCA)">
+irb(main):015:0> sleep 5
+=> 5
+irb(main):016:0> b.frame(:name, "rbottom").e.tr(:id, "1").to_a
+TypeError: can't convert Symbol into String
+	from (irb):16:in `tr'
+	from (irb):16
+	from :0
+irb(main):017:0> puts b.frame(:name, "rbottom").e.tr(:id, "1")
+TypeError: can't convert Symbol into String
+	from (irb):17:in `tr'
+	from (irb):17
+	from :0
+irb(main):018:0> b.frame(:name, "rbottom").tr(:id, "1")
+=> "TypeError: elements_frames[6].tr is not a function"
+irb(main):019:0> b.frame(:name, "rbottom").tr(:id, "1").puts
+NoMethodError: private method `puts' called for "TypeError: elements_frames[6].tr is not a function":String
+	from (irb):19
+	from :0
+irb(main):020:0> b.frame(:name, "rbottom").tr(:id, "1").to_s
+=> "TypeError: elements_frames[6].tr is not a function"
+irb(main):021:0> b.frame(:name, "rbottom").e.tr(:id, "1").to_s
+TypeError: can't convert Symbol into String
+	from (irb):21:in `tr'
+	from (irb):21
+	from :0
+irb(main):022:0> Nokogiri::HTML.parse(b.frame(:name, "rbottom").html)
+=> #<Nokogiri::HTML::Document:0x..fdbab4e14 name="document" children=[#<Nokogiri::XML::DTD:0x..fdbab4b58 name="html">, #<Nokogiri::XML::Element:0x..fdbab4b30 name="html" children=[#<Nokogiri::XML::Element:0x..fdbab4658 name="head" children=[#<Nokogiri::XML::Element:0x..fdbab4518 name="meta" attributes=[#<Nokogiri::XML::Attr:0x..fdbab44aa name="http-equiv" value="Content-Type">, #<Nokogiri::XML::Attr:0x..fdbab44a0 name="content" value="text/html; charset=windows-1252">]>, #<Nokogiri::XML::Element:0x..fdbab44f0 name="style" children=[#<Nokogiri::XML::CDATA:0x..fdbab409a "\n\n<!--\n\n\n\noption { font-family: Verdana; font-size: 9px }\ninput { font-family: Verdana; font-size: 9px }\nbody { font-family: Verdana; font-size: 11px }\ndiv { font-family: Verdana; font-size: 11px }\np { font-family: Verdana; font-size: 11px }\ntd { font-family: Verdana; font-size: 11px }\n\n\n\n-->\n">]>, #<Nokogiri::XML::Element:0x..fdbab3fe6 name="style" children=[#<Nokogiri::XML::CDATA:0x..fdbab3ea6 "\n<!--\ntd           { font-family: Verdana }\na            { text-decoration: none }\nselect { font-family: Verdana; font-size: 9px }\n-->\n">]>, #<Nokogiri::XML::Element:0x..fdbab3de8 name="script" attributes=[#<Nokogiri::XML::Attr:0x..fdbab3d7a name="language" value="JavaScript">] children=[#<Nokogiri::XML::CDATA:0x..fdbab3b5e "\n\n<!-- Begin\nvar checkflag = \"false\";\nfunction check1()\n{\nvar xx = document.zabba.numEntries.value\n\nif (checkflag == \"false\")\n{\n\nif (xx > 100 / 4)\n{\n\nalert('You can only save a total of [100] entries per day. Please make sure that you really want to save [' + xx + '] entries before clicking SAVE LIST');\n\n}\n\nfor (i = 1; i <= xx; i++)\n{\nvar whicher1 = 't'+i;\nvar whicher2 = 'x'+i;\nvar whicher3 = 't1_'+i;\ndocument.getElementById(whicher2).value = '01';\ndocument.getElementById(whicher1).style.backgroundColor='#E2ECF5';\n}\ncheckflag = \"true\";\nreturn \"Uncheck All\";\n}\nelse\n{\nfor (i = 1; i <= xx; i++)\n{\nvar whicher1 = 't'+i;\nvar whicher2 = 'x'+i;\ndocument.getElementById(whicher2).value = '00';\ndocument.getElementById(whicher1).style.backgroundColor='#FFFFFF';\n}\ncheckflag = \"false\";\nreturn \"Check All\";\n}\n}\n//  End -->\n\n">]>, #<Nokogiri::XML::Element:0x..fdbab3aaa name="script" attributes=[#<Nokogiri::XML::Attr:0x..fdbab3a3c name="language" value="javascript">] children=[#<Nokogiri::XML::CDATA:0x..fdbab3816 "\n\nfunction kwic(x,n)\n{\nvar whicher = 's'+ document.resort.counter.value;\ndocument.getElementById(whicher).value = x;\nvar whicher1 = 'n'+ n;\ndocument.getElementById(whicher1).innerHTML = document.resort.counter.value;\ndocument.resort.counter.value++;\n}\n\nfunction kwicL()\n{\nfor (n = 1; n <= 3; n++)\n{\nvar whicher = 's'+ n;\ndocument.getElementById(whicher).value = 0;\n}\nfor (n = 1; n <= 7; n++)\n{\nvar whicher1 = 'n'+ n;\ndocument.getElementById(whicher1).innerHTML = '-';\n}\ndocument.getElementById('n1').innerHTML = '3';\ndocument.getElementById('n2').innerHTML = '2';\ndocument.getElementById('n3').innerHTML = '1';\ndocument.getElementById('s1').value = -1;\ndocument.getElementById('s2').value = -2;\ndocument.getElementById('s3').value = -3;\ndocument.resort.counter.value = 4;\n}\n\nfunction kwicR()\n{\nfor (n = 1; n <= 3; n++)\n{\nvar whicher = 's'+ n;\ndocument.getElementById(whicher).value = 0;\n}\nfor (n = 1; n <= 7; n++)\n{\nvar whicher1 = 'n'+ n;\ndocument.getElementById(whicher1).innerHTML = '-';\n}\ndocument.getElementById('n5').innerHTML = '1';\ndocument.getElementById('n6').innerHTML = '2';\ndocument.getElementById('n7').innerHTML = '3';\ndocument.getElementById('s1').value = 1;\ndocument.getElementById('s2').value = 2;\ndocument.getElementById('s3').value = 3;\ndocument.resort.counter.value = 4;\n}\n\nfunction kwicx()\n{\nfor (n = 1; n <= 3; n++)\n{\nvar whicher = 's'+ n;\ndocument.getElementById(whicher).value = 0;\n}\nfor (n = 1; n <= 7; n++)\n{\nvar whicher1 = 'n'+ n;\ndocument.getElementById(whicher1).innerHTML = '-';\n}\ndocument.resort.counter.value = 1;\n}\n\n\nfunction countSelected()\n{\n\nif (document.zabba.mylists.options[0].selected == true && document.zabba.myListNew.value == '')\n{\n  alert ('You need to select an existing list (CHOOSE LIST), or else enter the name for a new list (CREATE NEW LIST)');\n   return false;\n}\n\nvar xx = document.zabba.numEntries.value;\nvar counter = 0;\nvar counter2;\nvar showit1;\nvar showit2;\nvar showit;\nvar total1;\nvar total2;\n\nfor (i = 1; i <= xx; i++)\n{\nvar aa = 'x'+i;\nif (document.getElementById(aa).value != '00')\n{\ncounter = counter + 1;\ncounter2 = counter*30;\n} // if\n} // for\n\nshowit1 = '4'+':'+'100'+':'+counter;\nshowit2 = '120'+':'+'100'+':'+counter2;\nshowit = showit1 + '\\n' + showit2;\n\ntotal1 = 4 + counter;\ntotal2 = 120 + counter2;\n\n// alert(showit);\n\nif (total1 >= 100 || total2 >= 100)\n{\n\nalert('Sorry -- if you saved these [' + counter + '] entries, it would exceed the number of KWIC entries that you can save');\n\ntop.rbottom.document.location = \"limitsKWIC_e.asp\";\nreturn false;\n}\n\n// alert(showit1+'\\n'+showit2);\n\n  if(counter == 0)\n  {\n  alert ('You need to select at least one entry to save')\n   return false;\n  }\n  return true;\n\n} // function\n\n\n\nfunction xipad()\n{\nparent.document.all(\"TopFrame\").cols=\"0,1000\";\ntop.rtitle.document.getElementById('mytitle').innerHTML = 'RETURN TO SEARCH FORM';\n}\n\nfunction dox(xx)\n{\nvar hilite = 't' + xx;\nvar selecto = 'x' + xx;\nvar cappo = 'f1_' + xx;\n\nif ( document.getElementById(selecto).value != '01' )\n{\ndocument.getElementById(selecto).value = '01';\ndocument.getElementById(hilite).style.backgroundColor='#E2ECF5';\ndocument.getElementById(cappo).style.fontWeight='bold';\n}\nelse\n{\ndocument.getElementById(selecto).value = '00';\ndocument.getElementById(hilite).style.backgroundColor='#FFFFFF';\ndocument.getElementById(cappo).style.fontWeight='normal';\n}\n}\n\nfunction doy(xx)\n{\nvar hilite = 't' + xx\nvar selecto = 'x' + xx\nvar cappo = 'f2_' + xx\n\nif ( document.getElementById(selecto).value != '02' )\n{\ndocument.getElementById(selecto).value = '02';\ndocument.getElementById(hilite).style.backgroundColor='#FFFFCC';\ndocument.getElementById(cappo).style.fontWeight='bold';\n}\nelse\n{\ndocument.getElementById(selecto).value = '00';\ndocument.getElementById(hilite).style.backgroundColor='#FFFFFF';\ndocument.getElementById(cappo).style.fontWeight='normal';\n}\n}\n\nfunction doz(xx)\n{\nvar hilite = 't' + xx\nvar selecto = 'x' + xx\nvar cappo = 'f3_' + xx\n\nif ( document.getElementById(selecto).value != '03' )\n{\ndocument.getElementById(selecto).value = '03';\ndocument.getElementById(hilite).style.backgroundColor='#DDFFDD';\ndocument.getElementById(cappo).style.fontWeight='bold';\n}\nelse\n{\ndocument.getElementById(selecto).value = '00';\ndocument.getElementById(hilite).style.backgroundColor='#FFFFFF';\ndocument.getElementById(cappo).style.fontWeight='normal';\n}\n}\n\nfunction x5()\n{\nalert ('hi there');\n}\n\nfunction x2()\n\n{\n\nparent.document.all(\"TopFrame\").cols=\"20,15,*\";\nparent.document.all(\"righto\").rows=\"0,28,97%\";\n\n}\n\nfunction loader()\n{\nvar xx = document.zabba.numEntries.value;\n\ntop.rtitle.document.getElementById('mytitle').innerHTML = \"KEYWORD IN CONTEXT DISPLAY\";\n\nparent.document.all(\"TopFrame\").cols=\"20,15,*\";\n\n\nfor (i=1; i <= xx ;i++)\n{\nvar whicher1 = 't'+i;\nvar whicher2 = 'x'+i;\nif ( document.getElementById(whicher2).value == '01' )\n{\nvar cappo = 'f1_'+i;\ndocument.getElementById(cappo).style.fontWeight='bold';\ndocument.getElementById(whicher1).style.backgroundColor='#E2ECF5';\n}\n\nif ( document.getElementById(whicher2).value == '02' )\n{\nvar cappo = 'f2_'+i;\ndocument.getElementById(cappo).style.fontWeight='bold';\ndocument.getElementById(whicher1).style.backgroundColor='#FFFFCC';\n}\n\nif ( document.getElementById(whicher2).value == '03' )\n{\nvar cappo = 'f3_'+i;\ndocument.getElementById(cappo).style.fontWeight='bold';\ndocument.getElementById(whicher1).style.backgroundColor='#DDFFDD';\n}\n\n} // for loop\n\n} // function\n\n\nfunction useSpan()\n{\n\ntop.rtitle.document.getElementById('mytitle').innerHTML = \"KEYWORD IN CONTEXT DISPLAY\";\n\nparent.document.all(\"TopFrame\").cols=\"20,15,*\";\n\ndocument.getElementById('w_moreContext').innerHTML = \"HACER CLIC EN EL T\303\203">]>]>]>]>
+irb(main):023:0> b.frame(:name, "rbottom").each do |row|
+irb(main):024:1* puts row.text
+irb(main):025:1> end
+=> ""
+irb(main):026:0> andrew@andrew-desktop:~/Documents/coca$ 1 2011 NEWS NYT A B C bowl system, which many argue hcommercialized and thus more vulnerable to corruption. Playoff PAC, a political action group taking aim at the Bowl Championship Series
+1: command not found
+andrew@andrew-desktop:~/Documents/coca$ 2 2011 NEWS NYT A B C significant deal. Meanwhile, Mr. Singh has been battered at home by allegations of corruption leveled against his government. His foes argue that the cricket overture is mostly intended
+2: command not found
+andrew@andrew-desktop:~/Documents/coca$ 3 2011 NEWS AP A B C viable. " # Phillips warned that new countries with weak governance are prone to corruption, especially if they benefit from the windfall of newly acquired resources. Most of
+> 4 2011 NEWS AP A B C expense of health or education. But they were concerned by other problems, including corruption, little or no public oversight on military expenditures, and increased national debt because
+> 5 2011 NEWS AP A B C need political freedoms and serious economic reforms, that there must be an end to corruption and nepotism, " Jordanian political analyst Labib Kamhawi said. # In Cairo,
+3: command not found
+andrew@andrew-desktop:~/Documents/coca$ 6 2011 NEWS AP A B C a second day and drew comparisons between the North African countries: claims of chronic corruption and poverty, a heavy-handed security force and limits on the press and Internet. #
+6: command not found
+andrew@andrew-desktop:~/Documents/coca$ 7 2011 NEWS AP A B C of Tunisia was driven from power Friday by violent protests over soaring unemployment and corruption. Virtually unprecedented in modern Arab history, the populist uprising sent an ominous message
+7: command not found
+andrew@andrew-desktop:~/Documents/coca$ 8 2011 NEWS AP A B C cables released by WikiLeaks have called Tunisia a " police state " and described the corruption there, saying Ben Ali had lost touch with his people. Social networks like
+8: command not found
+andrew@andrew-desktop:~/Documents/coca$ 9 2011 NEWS 1 2011 NEWS NYT A B C bowl system, which many argue has become overly commercialized and thus more vulnerable to corruption. Playoff PAC, a political action group taking aim at the Bowl Championship Series
+9: command not found
+andrew@andrew-desktop:~/Documents/coca$ 2 2011 NEWS NYT A B C significant deal. Meanwhile, Mr. Singh has been battered at home by allegations of corruption leveled against his government. His foes argue that the cricket overture is mostly intended
+2: command not found
+andrew@andrew-desktop:~/Documents/coca$ 3 2011 NEWS AP A B C viable. " # Phillips warned that new countries with weak governance are prone to corruption, especially if they benefit from the windfall of newly acquired resources. Most of
+> 4 2011 NEWS AP A B C expense of health or education. But they were concerned by other problems, including corruption, little or no public oversight on military expenditures, and increased national debt because
+> 5 2011 NEWS AP A B C need political freedoms and serious economic reforms, that there must be an end to corruption and nepotism, " Jordanian political analyst Labib Kamhawi said. # In Cairo,
+3: command not found
+andrew@andrew-desktop:~/Documents/coca$ 6 2011 NEWS AP A B C a second day and drew comparisons between the North African countries: claims of chronic corruption and poverty, a heavy-handed security force and limits on the press and Internet. #
+6: command not found
+andrew@andrew-desktop:~/Documents/coca$ 7 2011 NEWS AP A B C of Tunisia was driven from power Friday by violent protests over soaring unemployment and corruption. Virtually unprecedented in modern Arab history, the populist uprising sent an ominous message
+7: command not found
+andrew@andrew-desktop:~/Documents/coca$ 8 2011 NEWS AP A B C cables released by WikiLeaks have called Tunisia a " police state " and described the corruption there, saying Ben Ali had lost touch with his people. Social networks like
+8: command not found
+andrew@andrew-desktop:~/Documents/coca$ 9 2011 NEWS ^C
+andrew@andrew-desktop:~/Documents/coca$ ruby cocatest.rb 
+andrew@andrew-desktop:~/Documents/coca$ ruby cocatest.rb 
+andrew@andrew-desktop:~/Documents/coca$ 
+
+
+
+
+
+
+
