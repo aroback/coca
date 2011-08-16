@@ -18,11 +18,6 @@ b.goto "http://corpus.byu.edu/coca/"
 #click "enter" button
 b.button(:name => "B1").click
 
-#log in
-#b.frame(:name, "login").text_field(:name => "email").set EMAIL
-#b.frame(:name, "login").text_field(:name => "password").set PASSWORD
-#b.frame(:name, "login").form(:name => "myform").submit
-
 #enter n-gram
 b.frame(:name, "lefto").text_field(:name => "p").set "corruption"
 
@@ -33,21 +28,12 @@ b.frame(:name, "lefto").button(:name => "B7").click
 sleep 5
 
 #check the checkbox in results frame
-b.frame(:name, "rmid").checkbox(:name => "dox").set
+table = b.frame(:name, "rmid").table(:index, 2)
 
-#click context button
-b.frame(:name, "rmid").button(:name => "button3").click
-
-#wait five seconds for frame to load
-sleep 5
-
-#table = Nokogiri::HTML.parse(b.frame(:name, "rbottom").html)
-f.puts b.frame(:name, "rbottom").text
-#b.frame(:name, "rbottom").div(:id, "some-id").fire_event "onmouseover"
-end
+f.puts table
 
 f.close
-
+end
 #b.frame(:name, "rbottom").each do |row|
 #f.puts table
 
