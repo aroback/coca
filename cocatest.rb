@@ -24,7 +24,7 @@ b.button(:name => "B1").click
 #b.frame(:name, "login").form(:name => "myform").submit
 
 #enter n-gram
-b.frame(:name, "lefto").text_field(:name => "p").set "corruption"
+b.frame(:name, "lefto").text_field(:name => "p").set "toad"
 
 #click search button
 b.frame(:name, "lefto").button(:name => "B7").click
@@ -41,13 +41,31 @@ b.frame(:name, "rmid").button(:name => "button3").click
 #wait five seconds for frame to load
 sleep 5
 
-#table = Nokogiri::HTML.parse(b.frame(:name, "rbottom").html)
+#get N minus last two pages
+  loop do
+	f.puts b.frame(:name, "rbottom").text
+	b.frame(:name, "rbottom").link(:index =>3).click
+	sleep 5
+	page_next = b.frame(:name, "rbottom").link(:index =>3).href
+	page_last = b.frame(:name, "rbottom").link(:index =>4).href
+	if  page_next == page_last then
+	  break
+	
+  end
+  end
+#get last two pages
 f.puts b.frame(:name, "rbottom").text
-#b.frame(:name, "rbottom").div(:id, "some-id").fire_event "onmouseover"
-end
+b.frame(:name, "rbottom").link(:index =>3).click
+sleep 5
+f.puts b.frame(:name, "rbottom").text
 
+end
 f.close
 
+
+
+#b.frame(:name, "rbottom").div(:id, "some-id").fire_event "onmouseover"
+#table = Nokogiri::HTML.parse(b.frame(:name, "rbottom").html)
 #b.frame(:name, "rbottom").each do |row|
 #f.puts table
 
