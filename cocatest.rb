@@ -38,38 +38,37 @@ b.frame(:name, "rmid").checkbox(:name => "dox").set
 #click context button
 b.frame(:name, "rmid").button(:name => "button3").click
 
-#wait five seconds for frame to load
+#wait five seconds for "rbottom" frame to load
 sleep 5
 
 #get N minus last two pages
+#what I would like to do is grab only the text and set variables so that when I write to the file, I am writing CSV data.  As the program is written, I will just grab html data which I will have to parse on the back end.
   loop do
-	f.puts b.frame(:name, "rbottom").text
+	table = b.frame(:name, "rbottom").table(:index =>2).html
+	#f.puts b.frame(:name, "rbottom").table(:index =>2).each.text
+	table.each do |row|
+	f.puts(row)
+	end
 	b.frame(:name, "rbottom").link(:index =>3).click
 	sleep 5
 	page_next = b.frame(:name, "rbottom").link(:index =>3).href
 	page_last = b.frame(:name, "rbottom").link(:index =>4).href
 	if  page_next == page_last then
-	  break
+	break
 	
   end
   end
+
 #get last two pages
-f.puts b.frame(:name, "rbottom").text
-b.frame(:name, "rbottom").link(:index =>3).click
-sleep 5
-f.puts b.frame(:name, "rbottom").text
+	table.each do |row|
+	f.puts(row)
+	end
+  b.frame(:name, "rbottom").link(:index =>3).click
+  sleep 5
+  f.puts b.frame(:name, "rbottom").text
 
 end
+
 f.close
-
-
-
-#b.frame(:name, "rbottom").div(:id, "some-id").fire_event "onmouseover"
-#table = Nokogiri::HTML.parse(b.frame(:name, "rbottom").html)
-#b.frame(:name, "rbottom").each do |row|
-#f.puts table
-
-
-
 
 
