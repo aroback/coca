@@ -15,9 +15,9 @@ begin
   b.button(:name => "B1").click
   #log in
   #***DISABLED FOR TESTING***: clear Firefox browser cache and exit manually to reset for each test
-  #b.frame(:name, "login").text_field(:name => "email").set EMAIL
-  #b.frame(:name, "login").text_field(:name => "password").set PASSWORD
-  #b.frame(:name, "login").form(:name => "myform").submit
+  b.frame(:name, "login").text_field(:name => "email").set EMAIL
+  b.frame(:name, "login").text_field(:name => "password").set PASSWORD
+  b.frame(:name, "login").form(:name, "myform").submit
   #START SEARCH PROCESS ITERATIONS HERE--SEARCH TERMS IN ARRAY *MUST* BE IN ALL CAPS SINCE SITE FORM CAPTITALIZES ALL SEARCHES
   array = [ "jfgQ", "HIGH SPEED RAIL", "TOAD" ]
   array.each do |i|
