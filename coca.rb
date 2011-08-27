@@ -14,12 +14,13 @@ begin
   #click "enter" button
   b.button(:name => "B1").click
   #log in
-  #***DISABLED FOR TESTING***: clear Firefox browser cache and exit manually to reset for each test
-  b.frame(:name, "login").text_field(:name => "email").set EMAIL
-  b.frame(:name, "login").text_field(:name => "password").set PASSWORD
-  b.frame(:name, "login").form(:name, "myform").submit
+#  b.frame(:name, "login").text_field(:name => "email").set EMAIL
+#  b.frame(:name, "login").text_field(:name => "password").set PASSWORD
+#  b.frame(:name, "login").form(:name, "myform").submit
+
   #START SEARCH PROCESS ITERATIONS HERE--SEARCH TERMS IN ARRAY *MUST* BE IN ALL CAPS SINCE SITE FORM CAPTITALIZES ALL SEARCHES
-  array = [ "jfgQ", "HIGH SPEED RAIL", "TOAD" ]
+  array = [ "jfgQ", "HIGH SPEED RAIL", "TOAD", "NATIONAL PUBLIC RADIO" ]
+  results_counter = 0
   array.each do |i|
     #enter n-gram from array
     b.frame(:name, "lefto").text_field(:name => "p").set "#{i}"
@@ -30,9 +31,10 @@ begin
     #check for search term--if it is in "rmid" frame, continue, else, move on to next term in array
     term_found = b.frame(:name, "rmid").text.include? "#{i}"
     if term_found != true then
-      puts "No results for this search term #{i}"
+      puts "Wrote " + results_counter.to_s() + " pages of results for search term #{i}"
     next
     else
+    results_counter += 1
     #check the checkbox in results frame
     b.frame(:name, "rmid").checkbox(:name => "dox").set
     #click context button
@@ -44,9 +46,11 @@ begin
       f.puts b.frame(:name, "rbottom").table(:index =>2).html
       next_page = b.frame(:name, "rbottom").text.include? ">>" 
       if next_page != true then
-        break
+       puts "Wrote " + results_counter.to_s() + " page of results for search term #{i}"
+       break
       else
         b.frame(:name, "rbottom").link(:index =>3).click
+        results_counter += 1
         sleep 5
         page_next = b.frame(:name, "rbottom").link(:index =>3).href
         page_last = b.frame(:name, "rbottom").link(:index =>4).href
@@ -55,6 +59,7 @@ begin
           b.frame(:name, "rbottom").link(:index =>3).click
           sleep 5
           f.puts b.frame(:name, "rbottom").html
+	  puts "Wrote " + results_counter.to_s() + " pages of results for search term #{i}"
         break
         else
         end#if 3
