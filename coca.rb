@@ -20,8 +20,8 @@ begin
 
   #START SEARCH PROCESS ITERATIONS HERE--SEARCH TERMS IN ARRAY *MUST* BE IN ALL CAPS SINCE SITE FORM CAPTITALIZES ALL SEARCHES
   array = [ "jfgQ", "HIGH SPEED RAIL", "TOAD", "NATIONAL PUBLIC RADIO" ]
-  results_counter = 0
   array.each do |i|
+  results_counter = 0
     #enter n-gram from array
     b.frame(:name, "lefto").text_field(:name => "p").set "#{i}"
     #click search button
@@ -47,7 +47,7 @@ begin
       next_page = b.frame(:name, "rbottom").text.include? ">>" 
       if next_page != true then
        puts "Wrote " + results_counter.to_s() + " page of results for search term #{i}"
-#got rid of results_counter = 0 here
+       results_counter = 0
        break
       else
         b.frame(:name, "rbottom").link(:index =>3).click
